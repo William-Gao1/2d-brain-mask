@@ -1,0 +1,13 @@
+#!/bin/bash
+
+module load python/3.8.0 --silent
+
+slurmScript=$(python run.py $@)
+
+if [ $? -ne 0 ]
+then
+    echo "$slurmScript"
+    exit 1
+fi
+
+sbatch <<< "$slurmScript"
